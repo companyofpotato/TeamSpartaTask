@@ -2,6 +2,11 @@ using UnityEngine;
 
 public class ZombieState_MoveBack : ZombieState
 {
+    public ZombieState_MoveBack(LayerMask layerMaskZombie, LayerMask layerMaskTerrain) : base(layerMaskZombie, layerMaskTerrain)
+    {
+
+    }
+
     public override void Enter(Zombie zombie)
     {
         if (zombie.testLog)
@@ -35,9 +40,23 @@ public class ZombieState_MoveBack : ZombieState
 
     public override ZombieState OnCollisionStay(Zombie zombie, Collision2D collision)
     {
+        collisionLayer = collision.gameObject.layer;
+
+        if (collisionLayer == layerMaskDamageable)
+        {
+            if (zombie.IsDeadByDamage(10))
+            {
+                return zombie.zombieState_Die;
+            }
+            else
+            {
+                return null;
+            }
+        }
+
         if (zombie.target <= zombie.transform.position.x)
         {
-            return new ZombieState_Move();
+            return zombie.zombieState_Move;
         }
 
         return null;

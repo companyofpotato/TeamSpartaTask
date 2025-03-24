@@ -1,11 +1,11 @@
-using UnityEditor;
 using UnityEngine;
 
 public class ZombieState
 {
-    protected int layerMaskEnemy;
+    protected int layerMaskZombie;
     protected int layerMaskPlayer;
     protected int layerMaskTerrain;
+    protected int layerMaskDamageable;
     protected Vector2 finalVelocity;
     protected int collisionLayer;
     protected Vector2 collisionPosition;
@@ -13,11 +13,13 @@ public class ZombieState
     protected Zombie collisionZombie;
     protected Rigidbody2D rb;
 
-    public ZombieState()
+    public ZombieState(LayerMask layerMaskZombie, LayerMask layerMaskTerrain)
     {
-        layerMaskEnemy = LayerMask.GetMask("Enemy");
-        layerMaskPlayer = LayerMask.GetMask("Player");
-        layerMaskTerrain = LayerMask.GetMask("Terrain");
+        this.layerMaskZombie = (int)Mathf.Log(layerMaskZombie, 2f);
+        layerMaskPlayer = (int)Mathf.Log(LayerMask.GetMask("Player"), 2f); ;
+        this.layerMaskTerrain = (int)Mathf.Log(layerMaskTerrain, 2f);
+        layerMaskDamageable = (int)Mathf.Log(LayerMask.GetMask("Damageable"), 2f);
+
         finalVelocity = Vector2.zero;
         collisionLayer = -1;
         collisionPosition = Vector2.zero;
@@ -37,5 +39,7 @@ public class ZombieState
     public virtual ZombieState OnCollisionStay(Zombie zombie, Collision2D collision) { return null; }
 
     public virtual ZombieState OnCollisionExit(Zombie zombie, Collision2D collision) { return null; }
+
+    public virtual ZombieState OnTriggerStay(Zombie zombie, Collider2D collider) { return null; }
 
 }

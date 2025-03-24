@@ -2,6 +2,11 @@ using UnityEngine;
 
 public class ZombieState_Move : ZombieState
 {
+    public ZombieState_Move(LayerMask layerMaskZombie, LayerMask layerMaskTerrain) : base(layerMaskZombie, layerMaskTerrain)
+    {
+        
+    }
+
     public override void Enter(Zombie zombie)
     {
         if (zombie.testLog)
@@ -37,12 +42,24 @@ public class ZombieState_Move : ZombieState
     {
         collisionLayer = collision.gameObject.layer;
 
-        if (((1 << collisionLayer) & layerMaskPlayer) != 0)
+        if (collisionLayer == layerMaskDamageable)
         {
-            return new ZombieState_Attack();
+            if (zombie.IsDeadByDamage(10))
+            {
+                return zombie.zombieState_Die;
+            }
+            else
+            {
+                return null;
+            }
         }
 
-        if (((1 << collisionLayer) & layerMaskEnemy) != 0)
+        if (collisionLayer == layerMaskPlayer)
+        {
+            return zombie.zombieState_Attack;
+        }
+
+        if (collisionLayer == layerMaskZombie)
         {
             collisionPosition = collision.gameObject.transform.position;
             currentPosition = zombie.transform.position;
@@ -52,11 +69,24 @@ public class ZombieState_Move : ZombieState
                 && collisionPosition.y < currentPosition.y + zombie.capsuleSize.y * 0.5f - zombie.radius)
             {
                 collisionZombie = collision.gameObject.GetComponent<Zombie>();
-                return new ZombieState_Climb(collisionZombie.zombieId);
+                zombie.zombieState_Climb.SetLeftZombieId(collisionZombie.zombieId);
+                return zombie.zombieState_Climb;
             }
         }
 
         return null;
     }
+
+    //public override ZombieState OnTriggerStay(Zombie zombie, Collider2D collider)
+    //{
+    //    collisionLayer = collider.gameObject.layer;
+
+    //    if (collisionLayer == layerMaskPlayer)
+    //    {
+    //        return zombie.zombieState_Attack;
+    //    }
+
+    //    return null;
+    //}
 }
 

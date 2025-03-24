@@ -2,6 +2,11 @@ using UnityEngine;
 
 public class ZombieState_Fall : ZombieState
 {
+    public ZombieState_Fall(LayerMask layerMaskZombie, LayerMask layerMaskTerrain) : base(layerMaskZombie, layerMaskTerrain)
+    {
+
+    }
+
     public override void Enter(Zombie zombie)
     {
         if (zombie.testLog)
@@ -31,19 +36,31 @@ public class ZombieState_Fall : ZombieState
     {
         collisionLayer = collision.gameObject.layer;
 
-        if (((1 << collisionLayer) & layerMaskTerrain) != 0)
+        if (collisionLayer == layerMaskDamageable)
         {
-            return new ZombieState_Move();
+            if (zombie.IsDeadByDamage(10))
+            {
+                return zombie.zombieState_Die;
+            }
+            else
+            {
+                return null;
+            }
         }
 
-        if (((1 << collisionLayer) & layerMaskEnemy) != 0)
+        if (collisionLayer == layerMaskTerrain)
+        {
+            return zombie.zombieState_Move;
+        }
+
+        if (collisionLayer == layerMaskZombie)
         {
             collisionPosition = collision.gameObject.transform.position;
             currentPosition = zombie.transform.position;
 
             if (currentPosition.y - zombie.capsuleSize.y + zombie.radius > collisionPosition.y)
             {
-                return new ZombieState_Move();
+                return zombie.zombieState_Move;
             }
         }
 

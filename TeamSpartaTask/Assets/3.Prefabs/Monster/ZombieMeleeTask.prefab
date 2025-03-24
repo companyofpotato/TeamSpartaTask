@@ -10,7 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 4273209102836223132}
   - component: {fileID: 8351404802600531139}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: arm_l
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -93,7 +93,8 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1954661247169993479}
-  m_Layer: 0
+  - component: {fileID: 4219141238428469276}
+  m_Layer: 6
   m_Name: bodyPivot
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -121,6 +122,51 @@ Transform:
   - {fileID: 5915639926711266918}
   m_Father: {fileID: 6795884461639214193}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!61 &4219141238428469276
+BoxCollider2D:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1126365874002554164}
+  m_Enabled: 1
+  m_Density: 1
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_ForceSendLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_ForceReceiveLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_ContactCaptureLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_CallbackLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_IsTrigger: 1
+  m_UsedByEffector: 0
+  m_UsedByComposite: 0
+  m_Offset: {x: -0.4, y: 0.4}
+  m_SpriteTilingProperty:
+    border: {x: 0, y: 0, z: 0, w: 0}
+    pivot: {x: 0, y: 0}
+    oldSize: {x: 0, y: 0}
+    newSize: {x: 0, y: 0}
+    adaptiveTilingThreshold: 0
+    drawMode: 0
+    adaptiveTiling: 0
+  m_AutoTiling: 0
+  serializedVersion: 2
+  m_Size: {x: 0.4, y: 1}
+  m_EdgeRadius: 0
 --- !u!1 &1134826489982280230
 GameObject:
   m_ObjectHideFlags: 0
@@ -130,7 +176,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 18872362278802045}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: leg_lPivot
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -162,7 +208,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 5836165400605064649}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: arm_lPivot
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -195,7 +241,7 @@ GameObject:
   m_Component:
   - component: {fileID: 7786702936932170907}
   - component: {fileID: 6213278063007608666}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: leg_r
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -278,7 +324,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 5915639926711266918}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: headPivot
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -311,7 +357,7 @@ GameObject:
   m_Component:
   - component: {fileID: 5518200022822307577}
   - component: {fileID: 7435694920187967887}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: arm_r
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -395,7 +441,7 @@ GameObject:
   m_Component:
   - component: {fileID: 8441429952428933042}
   - component: {fileID: 4740899269022973160}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: leg_l
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -479,7 +525,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1965849537569802668}
   - component: {fileID: 5229165414577998123}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: head
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -632,7 +678,7 @@ Rigidbody2D:
     m_Bits: 0
   m_ExcludeLayers:
     serializedVersion: 2
-    m_Bits: 0
+    m_Bits: 4032
   m_Interpolate: 0
   m_SleepingMode: 1
   m_CollisionDetection: 0
@@ -669,8 +715,8 @@ CapsuleCollider2D:
   m_IsTrigger: 0
   m_UsedByEffector: 0
   m_UsedByComposite: 0
-  m_Offset: {x: -0.2, y: 0.5}
-  m_Size: {x: 0.8, y: 1}
+  m_Offset: {x: -0.2, y: 0.55}
+  m_Size: {x: 0.8, y: 1.2}
   m_Direction: 0
 --- !u!114 &6949764217839318673
 MonoBehaviour:
@@ -684,11 +730,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0cd16ee4faaf076478c48e2528a22192, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  testLog: 1
+  testLog: 0
   testId: -1
   testmoveSpeed: 1.5
   testmoveBackSpeed: 3
-  testclimbSpeed: 2.5
+  testclimbSpeed: 3
   testfallSpeed: 3
   testClimbCool: 0.25
 --- !u!1 &5335489783716950593
@@ -700,7 +746,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 5709166784382121273}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: arm_rPivot
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -733,7 +779,7 @@ GameObject:
   m_Component:
   - component: {fileID: 7090937198335704230}
   - component: {fileID: 815225073098062477}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: body
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -816,7 +862,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1391182622484839887}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: leg_rPivot
   m_TagString: Untagged
   m_Icon: {fileID: 0}

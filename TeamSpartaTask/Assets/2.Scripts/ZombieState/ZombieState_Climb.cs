@@ -4,9 +4,14 @@ public class ZombieState_Climb : ZombieState
 {
     private int leftZombieId;
 
-    public ZombieState_Climb(int leftZombieId)
+    public ZombieState_Climb(LayerMask layerMaskZombie, LayerMask layerMaskTerrain) : base(layerMaskZombie, layerMaskTerrain)
     {
-        this.leftZombieId = leftZombieId;
+
+    }
+
+    public void SetLeftZombieId(int id)
+    {
+        leftZombieId = id;
     }
 
     public override void Enter(Zombie zombie)
@@ -49,7 +54,19 @@ public class ZombieState_Climb : ZombieState
     {
         collisionLayer = collision.gameObject.layer;
 
-        if (((1 << collisionLayer) & layerMaskEnemy) != 0)
+        if (collisionLayer == layerMaskDamageable)
+        {
+            if (zombie.IsDeadByDamage(10))
+            {
+                return zombie.zombieState_Die;
+            }
+            else
+            {
+                return null;
+            }
+        }
+
+        if (collisionLayer == layerMaskZombie)
         {
             collisionPosition = collision.gameObject.transform.position;
             currentPosition = zombie.transform.position;
@@ -57,12 +74,12 @@ public class ZombieState_Climb : ZombieState
             if (collisionPosition.x > currentPosition.x
                 && currentPosition.y - zombie.capsuleSize.y * 0.5f < collisionPosition.y)
             {
-                return new ZombieState_Fall();
+                return zombie.zombieState_Fall;
             }
 
             if (currentPosition.y + zombie.capsuleSize.y - zombie.radius < collisionPosition.y)
             {
-                return new ZombieState_Fall();
+                return zombie.zombieState_Fall;
             }
         }
         return null;
@@ -72,13 +89,13 @@ public class ZombieState_Climb : ZombieState
     {
         collisionLayer = collision.gameObject.layer;
 
-        if (((1 << collisionLayer) & layerMaskEnemy) != 0)
+        if (collisionLayer == layerMaskZombie)
         {
             collisionZombie = collision.gameObject.GetComponent<Zombie>();
 
             if (zombie.leftZombieId == collisionZombie.zombieId)
             {
-                return new ZombieState_Move();
+                return zombie.zombieState_Move;
             }
         }
 
