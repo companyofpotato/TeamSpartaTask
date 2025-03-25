@@ -32,6 +32,7 @@ public class ZombieState_Move : ZombieState
 
         if (finalVelocity.y > zombie.climbSpeed)
         {
+            // 너무 높게 올라가는 현상 방지
             finalVelocity.y = zombie.climbSpeed;
         }
 
@@ -67,12 +68,15 @@ public class ZombieState_Move : ZombieState
             collisionPosition = collision.gameObject.transform.position;
             currentPosition = zombie.transform.position;
 
+            // 이동 중 왼쪽 적당한 높이에 좀비가 닿으면
             if (collisionPosition.x < currentPosition.x
                 && currentPosition.y - zombie.capsuleSize.y + zombie.radius < collisionPosition.y
-                && collisionPosition.y < currentPosition.y + zombie.capsuleSize.y * 0.5f - zombie.radius)
+                && collisionPosition.y < currentPosition.y + zombie.capsuleSize.y * 0.5f - zombie.radius) 
             {
                 collisionZombie = collision.gameObject.GetComponent<Zombie>();
-                zombie.zombieState_Climb.SetLeftZombieId(collisionZombie.zombieId);
+
+                // 타고 올라갈 좀비의 ID값을 기억해두고 올라간다.
+                zombie.SetLeftZombieId(collisionZombie.zombieId); 
                 return zombie.zombieState_Climb;
             }
         }
@@ -80,6 +84,7 @@ public class ZombieState_Move : ZombieState
         return null;
     }
 
+    // 원거리 공격 좀비를 위해 공격 판정을 trigger collider를 통해 확인(추후 구현)
     //public override ZombieState OnTriggerStay(Zombie zombie, Collider2D collider)
     //{
     //    collisionLayer = collider.gameObject.layer;

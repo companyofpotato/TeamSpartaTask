@@ -32,7 +32,7 @@ public class Bullet : MonoBehaviour
     {
         if(((1 << collision.gameObject.layer) & terrainLayerMask) != 0)
         {
-            DestroyBullet();
+            DestroyBullet(); // 지면에 닿으면 스스로 파괴
         }
     }
 

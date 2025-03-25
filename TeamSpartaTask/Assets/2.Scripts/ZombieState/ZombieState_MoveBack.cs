@@ -14,7 +14,10 @@ public class ZombieState_MoveBack : ZombieState
             Debug.Log(zombie.zombieId + " start moveBack");
         }
 
+        // 뒤로 밀릴 지점 설정
         zombie.SetTarget(zombie.transform.position.x + zombie.capsuleSize.x + 0.2f);
+
+        // 뒤에 축적된 좀비들을 밀기 위해 질량 증가
         zombie.rb.mass = zombie.defaultMass * 100f;
     }
 
@@ -57,9 +60,11 @@ public class ZombieState_MoveBack : ZombieState
             }
         }
 
+        // 좀비와 닿던 지면과 닿던 필요한 지점까지 밀리면
         if (zombie.target <= zombie.transform.position.x)
         {
-            return zombie.zombieState_Move;
+            // 다시 왼쪽으로 이동 시작하여 너무 많이 밀리는 현상 방지
+            return zombie.zombieState_Move; 
         }
 
         return null;

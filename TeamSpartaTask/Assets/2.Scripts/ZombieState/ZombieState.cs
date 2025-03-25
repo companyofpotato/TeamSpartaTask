@@ -29,9 +29,11 @@ public class ZombieState
         rb = null;
     }
 
+    // 상태 진입 시 호출
     public virtual void Enter(Zombie zombie) { }
 
-    public virtual void Exit(Zombie zombie) { }
+    // 상태 퇴장 시 호출
+    public virtual void Exit(Zombie zombie) { } 
 
     public virtual void FixedUpdate(Zombie zombie) { }
 

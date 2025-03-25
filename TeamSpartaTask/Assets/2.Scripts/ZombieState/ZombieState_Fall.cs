@@ -63,7 +63,8 @@ public class ZombieState_Fall : ZombieState
 
             if (currentPosition.y - zombie.capsuleSize.y + zombie.radius > collisionPosition.y)
             {
-                return zombie.zombieState_Move;
+                // 떨어지다 밑에 좀비가 있으면 왼쪽으로 이동한다.
+                return zombie.zombieState_Move; 
             }
         }
 

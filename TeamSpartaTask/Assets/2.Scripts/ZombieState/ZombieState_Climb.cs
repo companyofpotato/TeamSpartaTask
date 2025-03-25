@@ -2,16 +2,10 @@ using UnityEngine;
 
 public class ZombieState_Climb : ZombieState
 {
-    private int leftZombieId;
 
     public ZombieState_Climb(LayerMask layerMaskZombie, LayerMask layerMaskTerrain) : base(layerMaskZombie, layerMaskTerrain)
     {
 
-    }
-
-    public void SetLeftZombieId(int id)
-    {
-        leftZombieId = id;
     }
 
     public override void Enter(Zombie zombie)
@@ -20,8 +14,6 @@ public class ZombieState_Climb : ZombieState
         {
             Debug.Log(zombie.zombieId + " start climb");
         }
-
-        zombie.SetLeftZombieId(leftZombieId);
     }
 
     public override void Exit(Zombie zombie)
@@ -39,7 +31,8 @@ public class ZombieState_Climb : ZombieState
     {
         if (Time.time <= zombie.lastClimbTime + zombie.climbCoolTime)
         {
-            return;
+            // 오르는 행위에 쿨타임을 부여하여 올라가다 떨어지고 다시 오르는 행위가 과도하게 반복되는 것을 방지한다.
+            return; 
         }
 
         rb = zombie.rb;
@@ -77,11 +70,13 @@ public class ZombieState_Climb : ZombieState
             if (collisionPosition.x > currentPosition.x
                 && currentPosition.y - zombie.capsuleSize.y * 0.5f < collisionPosition.y)
             {
+                // 우측 적당한 높이에 좀비가 있으면 떨어진다.
                 return zombie.zombieState_Fall;
             }
 
-            if (currentPosition.y + zombie.capsuleSize.y - zombie.radius < collisionPosition.y)
+            if (currentPosition.y + zombie.capsuleSize.y - zombie.radius < collisionPosition.y) 
             {
+                // 위에 좀비가 있으면 떨어진다.
                 return zombie.zombieState_Fall;
             }
         }
@@ -98,7 +93,8 @@ public class ZombieState_Climb : ZombieState
 
             if (zombie.leftZombieId == collisionZombie.zombieId)
             {
-                return zombie.zombieState_Move;
+                // 타고 올라가던 좀비가 없어지면 왼쪽으로 이동한다.
+                return zombie.zombieState_Move; 
             }
         }
 

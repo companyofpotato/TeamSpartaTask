@@ -27,7 +27,9 @@ public class ZombieState_Attack : ZombieState
         {
             Debug.Log(zombie.zombieId + " stop attack");
         }
-        zombie.rb.mass = zombie.defaultMass;
+
+        // 아래로 떨어지는 중에 사이에 끼는 것을 방지하기 위해 질량을 높인다.
+        zombie.rb.mass = zombie.defaultMass; 
         zombie.animator.SetBool("IsAttacking", false);
     }
 
@@ -63,7 +65,9 @@ public class ZombieState_Attack : ZombieState
         if (collisionLayer == layerMaskTerrain)
         {
             isOnTerrain = true;
-            zombie.rb.mass = zombie.defaultMass;
+
+            // 지면 위에 있을 때는 떨어질 일이 없으므로 질량을 원래대로 돌린다.
+            zombie.rb.mass = zombie.defaultMass; 
         }
 
         if (collisionLayer == layerMaskZombie)
@@ -75,20 +79,9 @@ public class ZombieState_Attack : ZombieState
                 && collisionPosition.x < currentPosition.x + 0.01f
                 && isOnTerrain)
             {
-                return zombie.zombieState_MoveBack;
+                // 위에 다른 좀비가 있으면 뒤로 밀린다.
+                return zombie.zombieState_MoveBack; 
             }
-        }
-
-        return null;
-    }
-
-    public override ZombieState OnCollisionExit(Zombie zombie, Collision2D collision)
-    {
-        collisionLayer = collision.gameObject.layer;
-
-        if (collisionLayer == layerMaskTerrain)
-        {
-            isOnTerrain = false;
         }
 
         return null;

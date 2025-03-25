@@ -69,6 +69,7 @@ public class Zombie : MonoBehaviour
         }
     }
 
+    // 상태 변환이 자주 발생하므로, 각 Zombie 인스턴스에 미리 생성해두었다가 사용
     public void CreateState(LayerMask layerMaskZombie, LayerMask layerMaskTerrain)
     {
         zombieState_Attack = new ZombieState_Attack(layerMaskZombie, layerMaskTerrain);
@@ -79,6 +80,7 @@ public class Zombie : MonoBehaviour
         zombieState_MoveBack = new ZombieState_MoveBack(layerMaskZombie, layerMaskTerrain);
     }
 
+    // 좀비 상태를 이동 상태로 변경 및 체력을 최대로 설정
     public void ResetStatus()
     {
         if (nextState != null)
@@ -122,6 +124,7 @@ public class Zombie : MonoBehaviour
         lastClimbTime = currentTime;
     }
 
+    // 피해 입은 후 죽는지 확인
     public bool IsDeadByDamage(int damage)
     {
         currentHealth -= damage;
