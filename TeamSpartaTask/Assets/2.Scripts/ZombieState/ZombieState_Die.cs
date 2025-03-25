@@ -15,7 +15,7 @@ public class ZombieState_Die : ZombieState
         }
 
         zombie.animator.SetBool("IsDead", true);
-        zombie.OnZombieDead?.Invoke(zombie.gameObject);
+        zombie.onZombieDead?.Invoke(zombie.gameObject);
     }
 
     public override void Exit(Zombie zombie)

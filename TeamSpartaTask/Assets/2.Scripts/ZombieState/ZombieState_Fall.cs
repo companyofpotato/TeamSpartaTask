@@ -38,6 +38,9 @@ public class ZombieState_Fall : ZombieState
 
         if (collisionLayer == layerMaskDamageable)
         {
+            collisionBullet = collision.gameObject.GetComponent<Bullet>();
+            collisionBullet.DestroyBullet();
+
             if (zombie.IsDeadByDamage(10))
             {
                 return zombie.zombieState_Die;

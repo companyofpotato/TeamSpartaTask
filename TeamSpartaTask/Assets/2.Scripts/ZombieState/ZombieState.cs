@@ -11,6 +11,7 @@ public class ZombieState
     protected Vector2 collisionPosition;
     protected Vector2 currentPosition;
     protected Zombie collisionZombie;
+    protected Bullet collisionBullet;
     protected Rigidbody2D rb;
 
     public ZombieState(LayerMask layerMaskZombie, LayerMask layerMaskTerrain)

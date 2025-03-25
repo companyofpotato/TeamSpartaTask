@@ -46,7 +46,7 @@ public class Zombie : MonoBehaviour
     public int leftZombieId { get; private set; }
     public float lastClimbTime { get; private set; }
 
-    public Action<GameObject> OnZombieDead;
+    public Action<GameObject> onZombieDead;
 
     public void Initialize(int zombieId, LayerMask layerMaskZombie, LayerMask layerMaskTerrain, Action<GameObject> onZombieDead)
     {
@@ -55,7 +55,7 @@ public class Zombie : MonoBehaviour
         if(isInitialized == false)
         {
             CreateState(layerMaskZombie, layerMaskTerrain);
-            OnZombieDead = onZombieDead;
+            this.onZombieDead = onZombieDead;
             animator = GetComponent<Animator>();
             rb = GetComponent<Rigidbody2D>();
             rb.excludeLayers ^= (layerMaskZombie | layerMaskTerrain);

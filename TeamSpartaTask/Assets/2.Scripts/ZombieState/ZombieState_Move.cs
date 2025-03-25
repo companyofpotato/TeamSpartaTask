@@ -25,7 +25,7 @@ public class ZombieState_Move : ZombieState
 
     public override void FixedUpdate(Zombie zombie)
     {
-        Rigidbody2D rb = zombie.rb;
+        rb = zombie.rb;
 
         finalVelocity.x = -zombie.moveSpeed;
         finalVelocity.y = rb.velocity.y;
@@ -44,6 +44,9 @@ public class ZombieState_Move : ZombieState
 
         if (collisionLayer == layerMaskDamageable)
         {
+            collisionBullet = collision.gameObject.GetComponent<Bullet>();
+            collisionBullet.DestroyBullet();
+
             if (zombie.IsDeadByDamage(10))
             {
                 return zombie.zombieState_Die;

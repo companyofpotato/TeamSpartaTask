@@ -24,7 +24,7 @@ public class ZombieSpawner : MonoBehaviour
     private void Start()
     {
         recentZombieId = 0;
-        zombieObjectPool = new GameObjectPool(zombiePrefab, 15, 5, transform);
+        zombieObjectPool = new GameObjectPool(zombiePrefab, 10, 5, transform);
     }
 
     public void SpawnZombie()
